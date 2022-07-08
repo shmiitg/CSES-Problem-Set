@@ -1,0 +1,3 @@
+1. (n-1)*m itertaions guarantess to gives SSSP
+2. 1*m iteration gives any negative weight cycle that exists
+2. Further (n-1)*m itertaions after step-1 converts edges to inf that will be affected by negative weight cycles 

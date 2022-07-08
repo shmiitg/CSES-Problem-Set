@@ -1,4 +1,6 @@
-// finding k shortest paths using dijkstra
+// modifying dijkstra to find longest path
+// take -1 as edge weight for each edge
+// fails for 1 tc in cses
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -22,27 +24,23 @@ int gcd(int a, int b)
         return a;
     return gcd(b, a % b);
 }
+
+vector<vi> adj(MAXN);
 const int inf = 1e18;
-vector<vector<pi>> adj(MAXN);
 void solve()
 {
-    int n, m, k;
-    cin >> n >> m >> k;
+    int n, m;
+    cin >> n >> m;
     for (int i = 0; i < m; i++)
     {
-        int a, b, c;
-        cin >> a >> b >> c;
-        adj[a].pb({c, b});
+        int a, b;
+        cin >> a >> b;
+        adj[a].pb(b);
     }
     priority_queue<pi, vector<pi>, greater<pi>> q;
-    vi vis(n + 1);
-    vector<vector<int>> dist(n + 1, vi(k + 1));
-    for (int i = 1; i <= n; i++)
-    {
-        for (int j = 1; j <= k; j++)
-            dist[i][j] = inf;
-    }
-    dist[1][1] = 0;
+    vi dist(n + 1, inf), par(n + 1, -1);
+    dist[1] = 0;
+    par[1] = -1;
     q.push({0, 1});
     while (!q.empty())
     {
@@ -50,24 +48,34 @@ void solve()
         q.pop();
         int curr_d = curr.first;
         int u = curr.second;
-        if (curr_d > dist[u][k])
+        if (dist[u] < curr_d)
             continue;
-        for (auto c : adj[u])
+        for (auto v : adj[u])
         {
-            int d = c.first;
-            int v = c.second;
-            if (dist[v][k] > curr_d + d)
+            if (dist[u] != inf && dist[v] > dist[u] - 1)
             {
-                dist[v][k] = curr_d + d;
-                q.push({dist[v][k], v});
-                sort(dist[v].begin(), dist[v].end());
+                dist[v] = dist[u] - 1;
+                q.push({dist[v], v});
+                par[v] = u;
             }
         }
     }
-    for (int i = 1; i <= k; i++)
+    int dest = n;
+    vi ans;
+    while (dest != -1)
     {
-        cout << dist[n][i] << " ";
+        ans.pb(dest);
+        dest = par[dest];
     }
+    if (ans.back() != 1)
+    {
+        cout << "IMPOSSIBLE\n";
+        return;
+    }
+    reverse(all(ans));
+    cout << ans.size() << "\n";
+    for (auto i : ans)
+        cout << i << " ";
 }
 
 int32_t main()

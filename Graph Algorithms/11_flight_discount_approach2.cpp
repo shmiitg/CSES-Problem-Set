@@ -1,5 +1,3 @@
-// finding k shortest paths using dijkstra
-
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
@@ -22,52 +20,68 @@ int gcd(int a, int b)
         return a;
     return gcd(b, a % b);
 }
+
+int n, m;
 const int inf = 1e18;
-vector<vector<pi>> adj(MAXN);
-void solve()
+
+vi dijkstra(vector<vector<pi>> &adj, int src)
 {
-    int n, m, k;
-    cin >> n >> m >> k;
-    for (int i = 0; i < m; i++)
-    {
-        int a, b, c;
-        cin >> a >> b >> c;
-        adj[a].pb({c, b});
-    }
+    vi dist(n + 1, inf);
+    dist[src] = 0;
     priority_queue<pi, vector<pi>, greater<pi>> q;
-    vi vis(n + 1);
-    vector<vector<int>> dist(n + 1, vi(k + 1));
-    for (int i = 1; i <= n; i++)
-    {
-        for (int j = 1; j <= k; j++)
-            dist[i][j] = inf;
-    }
-    dist[1][1] = 0;
-    q.push({0, 1});
+    q.push({0, src});
     while (!q.empty())
     {
         pi curr = q.top();
         q.pop();
         int curr_d = curr.first;
         int u = curr.second;
-        if (curr_d > dist[u][k])
+        if (dist[u] < curr_d)
             continue;
         for (auto c : adj[u])
         {
             int d = c.first;
             int v = c.second;
-            if (dist[v][k] > curr_d + d)
+            if (dist[v] > dist[u] + d)
             {
-                dist[v][k] = curr_d + d;
-                q.push({dist[v][k], v});
-                sort(dist[v].begin(), dist[v].end());
+                dist[v] = dist[u] + d;
+                q.push({dist[v], v});
             }
         }
     }
-    for (int i = 1; i <= k; i++)
+    return dist;
+}
+
+struct edge
+{
+    int u;
+    int v;
+    int cost;
+};
+void solve()
+{
+    cin >> n >> m;
+    vector<vector<pi>> adj1(n + 1), adj2(n + 1);
+    vector<edge> edges;
+    for (int i = 0; i < m; i++)
     {
-        cout << dist[n][i] << " ";
+        int a, b, c;
+        cin >> a >> b >> c;
+        adj1[a].pb({c, b});
+        adj2[b].pb({c, a});
+        edges.pb({a, b, c});
     }
+    vi dist1 = dijkstra(adj1, 1);
+    vi dist2 = dijkstra(adj2, n);
+    int ans = inf;
+    for (auto i : edges)
+    {
+        int u = i.u;
+        int v = i.v;
+        int cost = i.cost;
+        ans = min(ans, dist1[u] + dist2[v] + cost / 2);
+    }
+    cout << ans << "\n";
 }
 
 int32_t main()

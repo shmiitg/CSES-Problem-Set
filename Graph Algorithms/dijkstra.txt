@@ -1,0 +1,5 @@
+1. Fails for negative edges and negative weight cycles
+2. Never ends if the graph contains at least one negative cycles
+3. Can reach an end if the graph contains negative edges, but no negative cycles; however, it might give wrong results
+3. K shortest paths (dist[n][k]) by relaxing the kth distance for a node and sorting the k distances of that node
+4. Longest path in directed acyclic graph by taking all edge weights as -1
