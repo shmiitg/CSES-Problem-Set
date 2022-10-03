@@ -1,17 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
-#define MAXN 100005
-#define INF 1000000000
-#define MOD 1000000007
-#define pb push_back
-#define f first
-#define s second
-#define all(x) x.begin(), x.end()
-#define rall(x) x.rbegin(), x.rend()
 #define max3(a, b, c) max(max(a, b), c)
 #define min3(a, b, c) min(min(a, b), c)
-typedef vector<int> vi;
 typedef pair<int, int> pi;
 
 int dx[4] = {-1, 0, 1, 0};
@@ -65,12 +56,12 @@ void solve()
                 int x = end / m;
                 int y = end % m;
                 int p = par[x][y];
-                res.pb(dirs[p]);
+                res.push_back(dirs[p]);
                 int ex = x - dx[p];
                 int ey = y - dy[p];
                 end = ex * m + ey;
             }
-            reverse(all(res));
+            reverse(res.begin(), res.end());
             cout << "YES\n"
                  << res.size() << "\n"
                  << res;

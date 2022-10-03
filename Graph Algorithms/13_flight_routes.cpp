@@ -3,27 +3,14 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
-#define MAXN 100005
-#define INF 1000000000
-#define MOD 1000000007
-#define pb push_back
-#define f first
-#define s second
-#define all(x) x.begin(), x.end()
-#define rall(x) x.rbegin(), x.rend()
 #define max3(a, b, c) max(max(a, b), c)
 #define min3(a, b, c) min(min(a, b), c)
-typedef vector<int> vi;
 typedef pair<int, int> pi;
 
-int gcd(int a, int b)
-{
-    if (b == 0)
-        return a;
-    return gcd(b, a % b);
-}
 const int inf = 1e18;
-vector<vector<pi>> adj(MAXN);
+const int maxn = 2e5 + 5;
+
+vector<vector<pi>> adj(maxn);
 void solve()
 {
     int n, m, k;
@@ -32,11 +19,11 @@ void solve()
     {
         int a, b, c;
         cin >> a >> b >> c;
-        adj[a].pb({c, b});
+        adj[a].push_back({c, b});
     }
     priority_queue<pi, vector<pi>, greater<pi>> q;
-    vi vis(n + 1);
-    vector<vector<int>> dist(n + 1, vi(k + 1));
+    vector<int> vis(n + 1);
+    vector<vector<int>> dist(n + 1, vector<int>(k + 1));
     for (int i = 1; i <= n; i++)
     {
         for (int j = 1; j <= k; j++)

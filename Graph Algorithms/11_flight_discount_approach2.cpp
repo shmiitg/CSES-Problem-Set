@@ -1,32 +1,17 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
-#define MAXN 100005
-#define INF 1000000000
-#define MOD 1000000007
-#define pb push_back
-#define f first
-#define s second
-#define all(x) x.begin(), x.end()
-#define rall(x) x.rbegin(), x.rend()
 #define max3(a, b, c) max(max(a, b), c)
 #define min3(a, b, c) min(min(a, b), c)
-typedef vector<int> vi;
-typedef pair<int, int> pi;
 
-int gcd(int a, int b)
-{
-    if (b == 0)
-        return a;
-    return gcd(b, a % b);
-}
+typedef pair<int, int> pi;
 
 int n, m;
 const int inf = 1e18;
 
-vi dijkstra(vector<vector<pi>> &adj, int src)
+vector<int> dijkstra(vector<vector<pi>> &adj, int src)
 {
-    vi dist(n + 1, inf);
+    vector<int> dist(n + 1, inf);
     dist[src] = 0;
     priority_queue<pi, vector<pi>, greater<pi>> q;
     q.push({0, src});
@@ -67,12 +52,12 @@ void solve()
     {
         int a, b, c;
         cin >> a >> b >> c;
-        adj1[a].pb({c, b});
-        adj2[b].pb({c, a});
-        edges.pb({a, b, c});
+        adj1[a].push_back({c, b});
+        adj2[b].push_back({c, a});
+        edges.push_back({a, b, c});
     }
-    vi dist1 = dijkstra(adj1, 1);
-    vi dist2 = dijkstra(adj2, n);
+    vector<int> dist1 = dijkstra(adj1, 1);
+    vector<int> dist2 = dijkstra(adj2, n);
     int ans = inf;
     for (auto i : edges)
     {

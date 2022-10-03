@@ -1,29 +1,14 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
-#define INF 1000000000
-#define MOD 1000000007
-#define pb push_back
-#define f first
-#define s second
-#define all(x) x.begin(), x.end()
-#define rall(x) x.rbegin(), x.rend()
 #define max3(a, b, c) max(max(a, b), c)
 #define min3(a, b, c) min(min(a, b), c)
-typedef vector<int> vi;
 typedef pair<int, int> pi;
 
 const int MAXN = 1e5 + 5;
 
-int gcd(int a, int b)
-{
-    if (b == 0)
-        return a;
-    return gcd(b, a % b);
-}
-
-vi adj[MAXN];
-vi vis(MAXN), par(MAXN, -1);
+vector<int> adj[MAXN];
+vector<int> vis(MAXN), par(MAXN, -1);
 int n, m;
 int st, ed;
 
@@ -58,8 +43,8 @@ void solve()
     {
         int x, y;
         cin >> x >> y;
-        adj[x].pb(y);
-        adj[y].pb(x);
+        adj[x].push_back(y);
+        adj[y].push_back(x);
     }
     for (int i = 1; i <= n; i++)
     {
@@ -67,14 +52,14 @@ void solve()
         {
             if (cycle(i, -1))
             {
-                vi v;
-                v.pb(st);
+                vector<int> v;
+                v.push_back(st);
                 while (ed != st)
                 {
-                    v.pb(ed);
+                    v.push_back(ed);
                     ed = par[ed];
                 }
-                v.pb(ed);
+                v.push_back(ed);
                 cout << v.size() << "\n";
                 for (auto i : v)
                     cout << i << " ";

@@ -1,29 +1,15 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
-#define MAXN 100005
-#define INF 1000000000
-#define MOD 1000000007
-#define pb push_back
-#define f first
-#define s second
-#define all(x) x.begin(), x.end()
-#define rall(x) x.rbegin(), x.rend()
 #define max3(a, b, c) max(max(a, b), c)
 #define min3(a, b, c) min(min(a, b), c)
-typedef vector<int> vi;
 typedef pair<int, int> pi;
 
-int gcd(int a, int b)
-{
-    if (b == 0)
-        return a;
-    return gcd(b, a % b);
-}
+const int maxn = 1e5 + 5;
 
 int n, m;
-vector<int> adj[MAXN];
-vi vis(MAXN);
+vector<int> adj[maxn];
+vector<int> vis(maxn);
 
 void dfs(int node)
 {
@@ -41,16 +27,16 @@ void solve()
     {
         int x, y;
         cin >> x >> y;
-        adj[x].pb(y);
-        adj[y].pb(x);
+        adj[x].push_back(y);
+        adj[y].push_back(x);
     }
-    vi v;
+    vector<int> v;
     for (int i = 1; i <= n; i++)
     {
         if (!vis[i])
         {
             dfs(i);
-            v.pb(i);
+            v.push_back(i);
         }
     }
     int sz = v.size();

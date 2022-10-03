@@ -1,23 +1,16 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
-#define INF 1000000000
-#define MOD 1000000007
-#define pb push_back
-#define f first
-#define s second
-#define all(x) x.begin(), x.end()
-#define rall(x) x.rbegin(), x.rend()
 #define max3(a, b, c) max(max(a, b), c)
 #define min3(a, b, c) min(min(a, b), c)
 #define max4(a, b, c, d) max(a, max3(b, c, d))
 #define min4(a, b, c, d) min(a, min3(b, c, d))
-typedef vector<int> vi;
+
 typedef pair<int, int> pi;
 
-const int MAXN = 200005;
-int v[MAXN];
-int seg[4 * MAXN]; // 4*size of array is upper bound for segment tree array
+const int maxn = 200005;
+int v[maxn];
+int seg[4 * maxn]; // 4*size of array is upper bound for segment tree array
 
 // index will be segment tree root node for build, query and pointUpdate
 void build(int index, int low, int high)
