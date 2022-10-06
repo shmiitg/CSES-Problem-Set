@@ -1,6 +1,6 @@
 // modifying dijkstra to find longest path
 // take -1 as edge weight for each edge
-// fails for 1 tc in cses
+// fails for 1 tc in cses (TLE)
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -10,8 +10,8 @@ using namespace std;
 typedef pair<int, int> pi;
 
 const int maxn = 2e5 + 5;
-vector<vector<int>> adj(maxn);
 const int inf = 1e18;
+vector<vector<int>> adj(maxn);
 
 void solve()
 {
